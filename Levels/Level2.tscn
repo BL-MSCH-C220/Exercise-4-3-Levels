@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://dviuvq1rdefou"]
+
+[ext_resource type="Texture2D" uid="uid://b822hgbyyo14t" path="res://Assets/portal_start.png" id="1"]
+[ext_resource type="Script" path="res://Player/Player_Container.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://q4dc5nw0ay5c" path="res://Assets/portal_end.png" id="3"]
+[ext_resource type="Script" path="res://Levels/Exit.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://iyxxa2othkrg" path="res://Levels/Camera.tscn" id="5"]
+[ext_resource type="Script" path="res://Levels/Spawn.gd" id="6"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Background" type="TileMap" parent="."]
+modulate = Color(0.501961, 0.501961, 0.501961, 1)
+format = 2
+
+[node name="Spawn" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Spawn"]
+position = Vector2(200.778, 201.832)
+texture = ExtResource("1")
+script = ExtResource("6")
+
+[node name="Exit_to_3" type="Area2D" parent="."]
+script = ExtResource("4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Exit_to_3"]
+position = Vector2(3643.56, 493.357)
+texture = ExtResource("3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Exit_to_3"]
+position = Vector2(3643.56, 493.357)
+polygon = PackedVector2Array(12, -48.7, 23, -35.7, 23, -32.4, 25, -27.9, 25, 27.1, 22.6, 37, 21, 37, 11.5, 50, -11.6, 50, -23, 35.7, -23, 32.4, -25, 27.9, -25, -26.1, -19.4, -42, -17.8, -42, -10, -49.8, 12, -50)
+
+[node name="Player_Container" type="Node2D" parent="."]
+script = ExtResource("2")
+
+[node name="Enemy_Container" type="Node2D" parent="."]
+
+[node name="Platform" type="TileMap" parent="."]
+format = 2
+
+[node name="Foreground" type="TileMap" parent="."]
+format = 2
+
+[node name="Camera" parent="." instance=ExtResource("5")]
+
+[connection signal="body_entered" from="Exit_to_3" to="Exit_to_3" method="_on_Exit_body_entered"]
